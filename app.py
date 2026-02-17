@@ -1,3 +1,5 @@
+#version --1.1
+
 from flask import Flask, render_template
 import psycopg2 as p
 from flask import Flask, render_template, request, redirect
