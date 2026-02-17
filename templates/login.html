@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cruza – Login</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Helvetica, Arial, sans-serif;
+      color: #1c1e21;
+    }
+
+    .container {
+      display: flex;
+      gap: 90px;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .brand {
+      max-width: 420px;
+    }
+
+    .brand h1 {
+      font-size: 56px;
+      margin: 0;
+      color: #ffcc00;
+      letter-spacing: -1px;
+    }
+
+    .brand p {
+      font-size: 22px;
+      line-height: 1.4;
+      margin-top: 12px;
+      color: #333;
+    }
+
+    .card {
+      width: 380px;
+      background: white;
+      padding: 28px;
+      border-radius: 10px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    }
+
+    .card input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    .card button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 18px;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: #1877f2;
+      color: white;
+    }
+
+    .signup-btn {
+      background: #42b72a;
+    }
+
+    .divider {
+      height: 1px;
+      background: #dadde1;
+      margin: 22px 0;
+    }
+
+    .toggle {
+      text-align: center;
+      margin-top: 12px;
+      color: #1877f2;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="brand">
+      <h1>🚖 Cruza</h1>
+      <p>
+        Ride anytime, anywhere.<br>
+        Book safe, reliable taxis in seconds.
+      </p>
+    </div>
+
+    <div class="card">
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm" action="/login" method="post">
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <button type="submit">Log In</button>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form id="signupForm" class="hidden" action="/signup" method="post">
+        <input type="text" name="name" placeholder="Full Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <button class="signup-btn" type="submit">Create Account</button>
+      </form>
+
+      <div class="divider"></div>
+
+      <div id="toggleText" class="toggle" onclick="toggleForm()">
+        Create New Account
+      </div>
+
+    </div>
+
+  </div>
+
+<script>
+function toggleForm() {
+  const login = document.getElementById("loginForm");
+  const signup = document.getElementById("signupForm");
+  const text = document.getElementById("toggleText");
+
+  if (login.classList.contains("hidden")) {
+    login.classList.remove("hidden");
+    signup.classList.add("hidden");
+    text.innerText = "Create New Account";
+  } else {
+    signup.classList.remove("hidden");
+    login.classList.add("hidden");
+    text.innerText = "Already have an account? Login";
+  }
+}
+</script>
+
+</body>
+</html>
+
