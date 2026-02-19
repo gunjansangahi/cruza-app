@@ -1,4 +1,4 @@
-#version --1.1
+#version --1.2
 
 from flask import Flask, render_template
 import psycopg2 as p
