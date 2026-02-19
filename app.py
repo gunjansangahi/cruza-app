@@ -26,7 +26,7 @@ def dbtest():
         cur.execute("SELECT 1;")
         cur.close()
         conn.close()
-        return "Database connected successfully!"
+        return "Database connected successfully !!!!"
     except Exception as e:
         return str(e)
 
@@ -69,9 +69,9 @@ def login():
     conn.close()
 
     if user:
-        return "Login successful — Welcome to Cruza 🚗"
+        return "Loggin successful — Welcome to Cruza 🚗"
     else:
-        return "Invalid email or password"
+        return "Invaliid email or password"
 
 
 @app.route("/")
