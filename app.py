@@ -115,9 +115,9 @@ def login():
     conn.close()
 
     if user:
-        return "Login successful — Welcome to Cruza 🚗"
+        return "Login successful — Welcome to Cruza. 🚗"
     else:
-        return "Invalid email or password"
+        return "Invalid email or password."
 
 
 # ---------- HOME ----------
