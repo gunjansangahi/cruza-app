@@ -1,60 +1,25 @@
-# version --1.4
+#version --1.3
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 import psycopg2 as p
-import boto3
-import json
-from botocore.exceptions import ClientError
+from flask import Flask, render_template, request, redirect
 
-
-# ---------- GET SECRET FROM AWS ----------
-def get_secret():
-
-    secret_name = "cruza_db_connection"
-    region_name = "eu-north-1"
-
-    session = boto3.session.Session()
-    client = session.client(
-        service_name='secretsmanager',
-        region_name=region_name
-    )
-
-    try:
-        response = client.get_secret_value(
-            SecretId=secret_name
-        )
-    except ClientError as e:
-        raise e
-
-    secret = response['SecretString']
-
-    return json.loads(secret)
-
-
-# ---------- DATABASE CONNECTION ----------
 def get_db_connection():
-
-    secret = get_secret()
-
     conn = p.connect(
-        host = secret["host"],
-        database = secret["database"],
-        user = secret["username"],
-        password = secret["password"],
-        port = secret["port"]
-    )
-
+            host = "cruza-postgress-db.ctko8i0wsxxn.eu-north-1.rds.amazonaws.com",
+            database = "cruza_db",
+            user = "gunjan",
+            password = "Gunjan7827gs",
+            port = "5432")
     cur = conn.cursor()
     cur.execute("SET search_path TO cruza;")
     cur.close()
-
     return conn
+    
 
 
 app = Flask(__name__)
 
-
-# ---------- DB TEST ----------
 @app.route("/dbtest")
 def dbtest():
     try:
@@ -63,17 +28,12 @@ def dbtest():
         cur.execute("SELECT 1;")
         cur.close()
         conn.close()
-
         return "Database connected successfully !!!!"
-
     except Exception as e:
         return str(e)
 
-
-# ---------- SIGNUP ----------
 @app.route("/signup", methods=["POST"])
 def signup():
-
     name = request.form["name"]
     email = request.form["email"]
     password = request.form["password"]
@@ -87,17 +47,13 @@ def signup():
     )
 
     conn.commit()
-
     cur.close()
     conn.close()
 
     return "Account created successfully!"
 
-
-# ---------- LOGIN ----------
 @app.route("/login", methods=["POST"])
 def login():
-
     email = request.form["email"]
     password = request.form["password"]
 
@@ -115,16 +71,14 @@ def login():
     conn.close()
 
     if user:
-        return "Login successful — Welcome to Cruza 🚗"
+        return "Loggin successful — Welcome to Cruza 🚗"
     else:
-        return "Invalid email or password"
+        return "Invaliid email or password"
 
 
-# ---------- HOME ----------
 @app.route("/")
 def home():
-    return render_template("login.html")
-
+	return render_template("login.html")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+	app.run(host="0.0.0.0", port=5000)
